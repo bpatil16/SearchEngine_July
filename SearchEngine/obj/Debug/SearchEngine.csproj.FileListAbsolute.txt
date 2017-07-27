@@ -1,0 +1,1 @@
+C:\Users\localadmin\Documents\Github\JobSearchEngine\SearchEngine\SearchEngine\obj\Debug\SearchEngine.csprojResolveAssemblyReference.cache
