@@ -13,7 +13,8 @@ namespace SearchEngine
             var account = new Account
             {
                 EmailAddress = emailAddress,
-                TypeOfAccount = typeofAccount
+                TypeOfAccount = typeofAccount,
+                Password = password
             };
             return account;
         }
