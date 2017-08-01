@@ -27,7 +27,6 @@ namespace SearchEngine
             public string Password { get; set; }
             public AccountTypes TypeOfAccount { get; set; }
 
-
         #endregion
 
         #region Constructor
