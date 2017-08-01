@@ -14,7 +14,8 @@ namespace SearchEngine
             Console.WriteLine("******** Welcome to Job search Engine*******");
             Console.WriteLine("0. Exit");
             Console.WriteLine("1. Create Account");
-            Console.WriteLine("2. Change Password");
+            Console.WriteLine("2. Post a Job");
+            Console.WriteLine("3. Upload a resume");
             Console.WriteLine("Please select option");
             var option = Console.ReadLine();
             switch(option)
@@ -52,15 +53,34 @@ namespace SearchEngine
                     Console.ReadLine();
                     break;
                 case "2":
-                    Console.WriteLine("\n Please enter new password");
-                    var newPass = Console.ReadLine();
+                    Console.WriteLine("\n Please provide Job Title:");
+                    var title = Console.ReadLine();
+                    Console.Write("\n Please provide Job Description:\n");
+                    var description = Console.ReadLine();
+                    Console.WriteLine("\n Please provide your Company name:\n");
+                    var company = Console.ReadLine();
+                    Console.Write("\n Please provide location:\n");
+                    var location = Console.ReadLine();
+                    var job = Engine.PostJob(title,description, company,location);
+                    Console.WriteLine($"A Job with Id: {job.JobNumber}, Company: {job.Company} has been posted ");
+                    Console.ReadLine();
                     break;
                 case "3":
-
+                    Console.WriteLine("\n Please provide your name:");
+                    var resumeName = Console.ReadLine();
+                    Console.Write("\n Please provide Description:\n");
+                    var resumeDescription = Console.ReadLine();
+                    Console.WriteLine("\n Please provide your education:\n");
+                    var education = Console.ReadLine();
+                    Console.Write("\n Please provide Skills:\n");
+                    var skills = Console.ReadLine();
+                    var resume = Engine.UploadResume(resumeName, resumeDescription, education, skills);
+                    Console.WriteLine($"A Resume for: {resume.ResumeName}, With Description: {resume.Description} has been posted ");
+                    Console.ReadLine();
                     break;
                 default:
                     break;
-
+                     
 
 
             }

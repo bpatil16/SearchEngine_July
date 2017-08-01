@@ -18,6 +18,30 @@ namespace SearchEngine
             };
             return account;
         }
-        
+
+        public static Job PostJob(string jobTitle, string jobDescription, string company, string location)
+        {
+            var job = new Job
+            {
+                JobTitle = jobTitle,
+                Description = jobDescription,
+                Company = company,
+                Location = location
+            };
+            return job;
+        }
+
+        public static Resume UploadResume(string userName, string resumeDescription, string education, string skills)
+        {
+            var resume = new Resume
+            {
+                ResumeName = userName,
+                Description = resumeDescription,
+                Education = education,
+                Skills = skills
+        };
+            return resume;
+        }
+
     }
 }
