@@ -17,7 +17,7 @@ namespace SearchEngine
             Console.WriteLine("0. Exit");
             Console.WriteLine("1. Create Account");
             Console.WriteLine("2. Post a Job");
-            Console.WriteLine("3. Upload a resume");
+            Console.WriteLine("3. Jobseeker Upload a resume");
             Console.WriteLine("Please select option");
             var option = Console.ReadLine();
                 switch (option)
@@ -68,6 +68,7 @@ namespace SearchEngine
                         Console.ReadLine();
                         break;
                     case "3":
+                        
                         Console.WriteLine("\n Please provide your name:");
                         var resumeName = Console.ReadLine();
                         Console.Write("\n Please provide Description:\n");

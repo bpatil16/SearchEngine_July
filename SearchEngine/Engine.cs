@@ -8,6 +8,7 @@ namespace SearchEngine
 {
     public static class Engine
     {
+        private static Model1 db = new Model1(); 
         public static Account CreateAccount(string emailAddress, string password, AccountTypes typeofAccount)
         {
             var account = new Account
@@ -16,6 +17,8 @@ namespace SearchEngine
                 TypeOfAccount = typeofAccount,
                 Password = password
             };
+            db.Accounts.Add(account);
+            db.SaveChanges();
             return account;
         }
 
@@ -28,6 +31,8 @@ namespace SearchEngine
                 Company = company,
                 Location = location
             };
+            db.Jobs.Add(job);
+            db.SaveChanges();
             return job;
         }
 
@@ -40,6 +45,8 @@ namespace SearchEngine
                 Education = education,
                 Skills = skills
         };
+            db.Resumes.Add(resume);
+            db.SaveChanges();
             return resume;
         }
 
