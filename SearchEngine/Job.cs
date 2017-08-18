@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,10 +20,13 @@ namespace SearchEngine
         public string Description { get; set; }
         public string Company { get; set; }
         public string Location { get; set; }
-
+        [ForeignKey("Account")]
         public int AccountNumber { get; set; }
 
-        
+        public virtual Account Account { get; set; }
+
+
+
         #endregion
 
         #region Constructor

@@ -22,32 +22,48 @@ namespace SearchEngine
             return account;
         }
 
-        public static Job PostJob(string jobTitle, string jobDescription, string company, string location)
+        public static Job PostJob(string jobTitle, string jobDescription, string company, string location, int accountNumber)
         {
             var job = new Job
             {
                 JobTitle = jobTitle,
                 Description = jobDescription,
                 Company = company,
-                Location = location
+                Location = location,
+                AccountNumber = accountNumber
             };
             db.Jobs.Add(job);
             db.SaveChanges();
             return job;
         }
 
-        public static Resume UploadResume(string userName, string resumeDescription, string education, string skills)
+        public static Resume UploadResume(string userName, string resumeDescription, string education, string skills, int accountNumber)
         {
             var resume = new Resume
             {
                 ResumeName = userName,
                 Description = resumeDescription,
                 Education = education,
-                Skills = skills
+                Skills = skills,
+                AccountNumber = accountNumber
         };
             db.Resumes.Add(resume);
             db.SaveChanges();
             return resume;
+        }
+
+        public static Account[] GetAllAccountsByEmail(string email)
+        {
+
+            return db.Accounts.Where(a => a.EmailAddress == email).ToArray();
+
+        }
+
+        public static Account[] GetAllAccounts()
+        {
+
+            return db.Accounts.Where(a => a.AccountNumber != 0).ToArray();
+
         }
 
     }

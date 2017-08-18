@@ -14,10 +14,11 @@ namespace SearchEngine
             Console.WriteLine("******** Welcome to Job search Engine*******");
             while(true)
             { 
-            Console.WriteLine("0. Exit");
+            Console.WriteLine("\n 0. Exit");
             Console.WriteLine("1. Create Account");
             Console.WriteLine("2. Post a Job");
             Console.WriteLine("3. Jobseeker Upload a resume");
+            Console.WriteLine("4. Print All Accounts");
             Console.WriteLine("Please select option");
             var option = Console.ReadLine();
                 switch (option)
@@ -55,6 +56,8 @@ namespace SearchEngine
                         Console.ReadLine();
                         break;
                     case "2":
+                        Console.WriteLine("\n Please provide you Account Number:");
+                        int anumber = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine("\n Please provide Job Title:");
                         var title = Console.ReadLine();
                         Console.Write("\n Please provide Job Description:\n");
@@ -63,12 +66,13 @@ namespace SearchEngine
                         var company = Console.ReadLine();
                         Console.Write("\n Please provide location:\n");
                         var location = Console.ReadLine();
-                        var job = Engine.PostJob(title, description, company, location);
-                        Console.WriteLine($"A Job with Id: {job.JobNumber}, Company: {job.Company} has been posted ");
+                        var job = Engine.PostJob(title, description, company, location, anumber);
+                        Console.WriteLine($"A Job with Id: {job.JobNumber}, Company: {job.Company}, for Account: {job.AccountNumber} has been posted ");
                         Console.ReadLine();
                         break;
                     case "3":
-                        
+                        Console.WriteLine("\n Please provide you Account Number:");
+                        int accnumber = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine("\n Please provide your name:");
                         var resumeName = Console.ReadLine();
                         Console.Write("\n Please provide Description:\n");
@@ -77,9 +81,12 @@ namespace SearchEngine
                         var education = Console.ReadLine();
                         Console.Write("\n Please provide Skills:\n");
                         var skills = Console.ReadLine();
-                        var resume = Engine.UploadResume(resumeName, resumeDescription, education, skills);
-                        Console.WriteLine($"A Resume for: {resume.ResumeName}, With Description: {resume.Description} has been posted ");
+                        var resume = Engine.UploadResume(resumeName, resumeDescription, education, skills, accnumber);
+                        Console.WriteLine($"A Resume for: {resume.ResumeName}, With Description: {resume.Description}, for Account: {resume.AccountNumber} has been posted ");
                         Console.ReadLine();
+                        break;
+                    case "4":
+                        PrintAllAccounts();
                         break;
                     default:
                         break;
@@ -87,8 +94,30 @@ namespace SearchEngine
                 }
 
             }
+
         }
 
+        private static void PrintAllAccountsByEmail()
+        {
 
+            Console.WriteLine("Email Address");
+            var emailAddress = Console.ReadLine();
+            var myAccounts = Engine.GetAllAccountsByEmail(emailAddress);
+            foreach (var account in myAccounts)
+            {
+                Console.WriteLine($"An: {account.AccountNumber}, AT: {account.TypeOfAccount}");
+            }
+
+        }
+
+        private static void PrintAllAccounts()
+        {
+            var myAccounts = Engine.GetAllAccounts();
+            foreach (var account in myAccounts)
+            {
+                Console.WriteLine($"An: {account.AccountNumber}, Email: {account.EmailAddress}, AT: {account.TypeOfAccount}");
+            }
+
+        }
     }
 }

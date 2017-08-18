@@ -15,6 +15,7 @@ namespace SearchEngine
         public Model1()
             : base("name=Model1")
         {
+           // Database.SetInitializer(new CreateDatabaseIfNotExists<Model1>());
         }
 
         // Add a DbSet for each entity type that you want to include in your model. For more information 
