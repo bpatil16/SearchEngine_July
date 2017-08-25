@@ -34,6 +34,8 @@ namespace SearchEngine
             public string Password { get; set; }
             public AccountTypes TypeOfAccount { get; set; }
 
+            public string JobOrResumeDescription { get; private set; }
+
             public virtual ICollection<Resume> Resumes { get; set; }
 
             public virtual ICollection<Job> Jobs { get; set; }
@@ -50,5 +52,22 @@ namespace SearchEngine
         }
 
         #endregion
+
+        #region Methods
+
+        public void CreateResumeAccountType()
+        {
+            TypeOfAccount = AccountTypes.Jobseeker;
+           // JobOrResumeDescription = description;
+        }
+
+        public void CreateJobAccountType()
+        {
+           // JobOrResumeDescription = description;
+            TypeOfAccount = AccountTypes.Employer;
+        }
+
+        #endregion
+
     }
 }

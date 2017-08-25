@@ -8,7 +8,7 @@ namespace SearchEngine
 {
     public static class Engine
     {
-        private static Model1 db = new Model1(); 
+        private static Model1 db = new Model1();
         public static Account CreateAccount(string emailAddress, string password, AccountTypes typeofAccount)
         {
             var account = new Account
@@ -24,6 +24,10 @@ namespace SearchEngine
 
         public static Job PostJob(string jobTitle, string jobDescription, string company, string location, int accountNumber)
         {
+            var account = GetAccount(accountNumber);
+            account.CreateJobAccountType();
+            db.Entry(account).CurrentValues.SetValues(account);
+            db.SaveChanges();
             var job = new Job
             {
                 JobTitle = jobTitle,
@@ -39,6 +43,10 @@ namespace SearchEngine
 
         public static Resume UploadResume(string userName, string resumeDescription, string education, string skills, int accountNumber)
         {
+            var account = GetAccount(accountNumber);
+            account.CreateResumeAccountType();
+            db.Entry(account).CurrentValues.SetValues(account);
+            db.SaveChanges();
             var resume = new Resume
             {
                 ResumeName = userName,
@@ -46,7 +54,8 @@ namespace SearchEngine
                 Education = education,
                 Skills = skills,
                 AccountNumber = accountNumber
-        };
+
+            };
             db.Resumes.Add(resume);
             db.SaveChanges();
             return resume;
@@ -64,6 +73,24 @@ namespace SearchEngine
 
             return db.Accounts.Where(a => a.AccountNumber != 0).ToArray();
 
+        }
+
+        public static Account GetAccount(int accountNumber)
+        {
+            var account = db.Accounts.Where(a => a.AccountNumber == accountNumber).FirstOrDefault();
+            if (account == null)
+            {
+                throw new ArgumentException("Invalid Account Number");
+            }
+
+            return account;
+        }
+
+        public static Job[] GetJobsByAccountNumber(int accountNumber)
+        {
+            return db.Jobs
+                .Where(j =>j.AccountNumber == accountNumber)
+                .ToArray();
         }
 
     }
