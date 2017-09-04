@@ -71,14 +71,15 @@ namespace SearchEngine
             return resume;
         }
 
-        public static Application CreateApplication(string emailAddress)
+        public static Application CreateApplication(string emailAddress, int jobNumber)
         {
             var account1 = GetAccountByEmail(emailAddress);
             var resume1 = GetResumeByEmail(emailAddress);
             var application = new Application
             {
                 AccountDetails = account1,
-                ResumeDetails = resume1
+                ResumeDetails = resume1,
+                JobNumber = jobNumber
 
             };
             db.Applications.Add(application);
@@ -120,10 +121,30 @@ namespace SearchEngine
 
         }
 
+        public static Job GetJobByEmail(string email)
+        {
+
+            var job = db.Jobs.Where(a => a.EmployerEmail == email).FirstOrDefault();
+            if (job == null)
+            {
+                throw new ArgumentException("Account with that email is not present");
+            }
+
+            return job;
+
+        }
+
         public static Account[] GetAllAccounts()
         {
 
             return db.Accounts.Where(a => a.AccountNumber != 0).ToArray();
+
+        }
+
+        public static Job[] GetAllJobs()
+        {
+
+            return db.Jobs.Where(a => a.JobNumber != 0).ToArray();
 
         }
 

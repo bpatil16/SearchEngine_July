@@ -15,7 +15,6 @@ namespace SearchEngine
         private static int jobId;
         [Key]
         public int JobNumber { get; private set; }
-
         public string JobTitle { get; set; }
         public string Description { get; set; }
         public string Company { get; set; }
@@ -27,7 +26,9 @@ namespace SearchEngine
         [ForeignKey("Account"), Column(Order = 1)]
         public string EmployerEmail { get; set; }
 
-        
+        public virtual ICollection<Application> Applications { get; set; }
+
+
 
 
 

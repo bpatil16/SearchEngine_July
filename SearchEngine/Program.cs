@@ -168,10 +168,18 @@ namespace SearchEngine
                         }
                         break;
                     case "7":
-                        Console.WriteLine("Please enter the emailaddress");
+
+                        PrintAllJobs();
+                        Console.WriteLine("\n Please enter the jobseeker's emailaddress");
                         string jobseekerEmail = Console.ReadLine();
-                        var app = Engine.CreateApplication(jobseekerEmail);
-                        Console.WriteLine($"Application {app.AppNumber} has been created");
+
+                        Console.WriteLine("Please enter the job number you want to apply");
+                        int jobNumber = Convert.ToInt32(Console.ReadLine());
+
+
+                        var app = Engine.CreateApplication(jobseekerEmail, jobNumber);
+
+                        Console.WriteLine($"Application {app.AppNumber}, For JobNumber: {app.JobNumber} has been created");
                         break;
 
                   default:
@@ -202,6 +210,16 @@ namespace SearchEngine
             foreach (var account in myAccounts)
             {
                 Console.WriteLine($"An: {account.AccountNumber}, Email: {account.EmailAddress}, AT: {account.TypeOfAccount}");
+            }
+
+        }
+
+        private static void PrintAllJobs()
+        {
+            var myJobs = Engine.GetAllJobs();
+            foreach (var job in myJobs)
+            {
+                Console.WriteLine($"A job with ID: {job.JobNumber}, EmployerEmail: {job.EmployerEmail}, with Account: {job.AccountNumber}");
             }
 
         }

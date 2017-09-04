@@ -18,7 +18,14 @@ namespace SearchEngine
 
         public Account AccountDetails { get; set; }
         public Resume ResumeDetails{ get; set; }
- 
+
+        [ForeignKey("Job"), Column(Order = 0)]
+        public int JobNumber { get; set; }
+
+      
+       public virtual Job Job { get; set; }
+
+
         #endregion
 
         #region Constructor
