@@ -1,11 +1,11 @@
 C:\Users\localadmin\Documents\Github\JobSearchEngine\SearchEngine\SearchEngine\obj\Debug\SearchEngine.csprojResolveAssemblyReference.cache
-C:\Users\localadmin\Documents\Github\JobSearchEngine_July\SearchEngine\bin\Debug\SearchEngine.exe.config
-C:\Users\localadmin\Documents\Github\JobSearchEngine_July\SearchEngine\bin\Debug\SearchEngine.exe
 C:\Users\localadmin\Documents\Github\JobSearchEngine_July\SearchEngine\bin\Debug\SearchEngine.pdb
 C:\Users\localadmin\Documents\Github\JobSearchEngine_July\SearchEngine\obj\Debug\SearchEngine.csprojResolveAssemblyReference.cache
-C:\Users\localadmin\Documents\Github\JobSearchEngine_July\SearchEngine\obj\Debug\SearchEngine.exe
 C:\Users\localadmin\Documents\Github\JobSearchEngine_July\SearchEngine\obj\Debug\SearchEngine.pdb
 C:\Users\localadmin\Documents\Github\JobSearchEngine_July\SearchEngine\bin\Debug\EntityFramework.dll
 C:\Users\localadmin\Documents\Github\JobSearchEngine_July\SearchEngine\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\localadmin\Documents\Github\JobSearchEngine_July\SearchEngine\bin\Debug\EntityFramework.xml
 C:\Users\localadmin\Documents\Github\JobSearchEngine_July\SearchEngine\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\localadmin\Documents\Github\JobSearchEngine_July\SearchEngine\bin\Debug\SearchEngine.dll.config
+C:\Users\localadmin\Documents\Github\JobSearchEngine_July\SearchEngine\bin\Debug\SearchEngine.dll
+C:\Users\localadmin\Documents\Github\JobSearchEngine_July\SearchEngine\obj\Debug\SearchEngine.dll
