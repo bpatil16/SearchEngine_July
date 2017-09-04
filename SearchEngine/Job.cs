@@ -20,10 +20,14 @@ namespace SearchEngine
         public string Description { get; set; }
         public string Company { get; set; }
         public string Location { get; set; }
-        [ForeignKey("Account")]
+        [ForeignKey("Account"), Column(Order = 0)]
         public int AccountNumber { get; set; }
 
         public virtual Account Account { get; set; }
+        [ForeignKey("Account"), Column(Order = 1)]
+        public string EmployerEmail { get; set; }
+
+        
 
 
 

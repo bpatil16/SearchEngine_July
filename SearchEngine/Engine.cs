@@ -22,28 +22,37 @@ namespace SearchEngine
             return account;
         }
 
-        public static Job PostJob(string jobTitle, string jobDescription, string company, string location, int accountNumber)
+        public static Job PostJob(string jobTitle, string jobDescription, string company, string location, int accountNumber, string employerEmail)
         {
-            var account = GetAccount(accountNumber);
-            account.CreateJobAccountType();
-            db.Entry(account).CurrentValues.SetValues(account);
-            db.SaveChanges();
-            var job = new Job
+            var account = GetAccount(accountNumber, employerEmail);
+            if (account.TypeOfAccount == 0)
             {
-                JobTitle = jobTitle,
-                Description = jobDescription,
-                Company = company,
-                Location = location,
-                AccountNumber = accountNumber
-            };
-            db.Jobs.Add(job);
-            db.SaveChanges();
-            return job;
+                
+                return null;
+            }
+            
+                account.CreateJobAccountType();
+                db.Entry(account).CurrentValues.SetValues(account);
+                db.SaveChanges();
+                var job = new Job
+                {
+                    JobTitle = jobTitle,
+                    Description = jobDescription,
+                    Company = company,
+                    Location = location,
+                    AccountNumber = accountNumber,
+                    EmployerEmail = employerEmail
+                };
+                db.Jobs.Add(job);
+                db.SaveChanges();
+                return job;
+            
+            
         }
 
-        public static Resume UploadResume(string userName, string resumeDescription, string education, string skills, int accountNumber)
+        public static Resume UploadResume(string userName, string emailAddress, string resumeDescription, string education, string skills, int accountNumber)
         {
-            var account = GetAccount(accountNumber);
+            var account = GetAccount(accountNumber, emailAddress);
             account.CreateResumeAccountType();
             db.Entry(account).CurrentValues.SetValues(account);
             db.SaveChanges();
@@ -53,7 +62,8 @@ namespace SearchEngine
                 Description = resumeDescription,
                 Education = education,
                 Skills = skills,
-                AccountNumber = accountNumber
+                AccountNumber = accountNumber,
+                EmailAddress= emailAddress
 
             };
             db.Resumes.Add(resume);
@@ -61,10 +71,52 @@ namespace SearchEngine
             return resume;
         }
 
+        public static Application CreateApplication(string emailAddress)
+        {
+            var account1 = GetAccountByEmail(emailAddress);
+            var resume1 = GetResumeByEmail(emailAddress);
+            var application = new Application
+            {
+                AccountDetails = account1,
+                ResumeDetails = resume1
+
+            };
+            db.Applications.Add(application);
+            db.SaveChanges();
+            return application;
+        }
+
+
         public static Account[] GetAllAccountsByEmail(string email)
         {
 
             return db.Accounts.Where(a => a.EmailAddress == email).ToArray();
+
+        }
+
+        public static Resume GetResumeByEmail(string email)
+        {
+
+            var resume = db.Resumes.Where(a => a.EmailAddress == email).FirstOrDefault();
+            if (resume == null)
+            {
+                throw new ArgumentException("Resume is not present");
+            }
+
+            return resume;
+
+        }
+
+        public static Account GetAccountByEmail(string email)
+        {
+
+            var account = db.Accounts.Where(a => a.EmailAddress == email).FirstOrDefault();
+            if (account == null)
+            {
+                throw new ArgumentException("Account with that email is not present");
+            }
+
+            return account;
 
         }
 
@@ -75,12 +127,12 @@ namespace SearchEngine
 
         }
 
-        public static Account GetAccount(int accountNumber)
+        public static Account GetAccount(int accountNumber, string emailAddress)
         {
-            var account = db.Accounts.Where(a => a.AccountNumber == accountNumber).FirstOrDefault();
-            if (account == null)
+            var account = db.Accounts.Where(a => a.AccountNumber == accountNumber && a.EmailAddress == emailAddress).FirstOrDefault();
+            if (account == null && emailAddress == null)
             {
-                throw new ArgumentException("Invalid Account Number");
+                throw new ArgumentException("Invalid Account Number or email is invalid");
             }
 
             return account;
@@ -90,6 +142,13 @@ namespace SearchEngine
         {
             return db.Jobs
                 .Where(j =>j.AccountNumber == accountNumber)
+                .ToArray();
+        }
+
+        public static Job[] GetJobsByJobTitle(string title)
+        {
+            return db.Jobs
+                .Where(j => j.JobTitle == title)
                 .ToArray();
         }
 

@@ -20,6 +20,8 @@ namespace SearchEngine
             Console.WriteLine("3. Jobseeker Upload a resume");
             Console.WriteLine("4. Print All Accounts");
             Console.WriteLine("5. Print All Jobs");
+            Console.WriteLine("6. Search for Job by title");
+            Console.WriteLine("7. Apply for job");
             Console.WriteLine("Please select option");
             var option = Console.ReadLine();
                 switch (option)
@@ -67,8 +69,10 @@ namespace SearchEngine
                         try
                         {
                             PrintAllAccounts();
-                            Console.WriteLine("\n Please provide you Account Number to post job:");
+                            Console.WriteLine("\n Please provide your Employer Account Number to post job:");
                             int anumber = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine("\n Please provide you email id");
+                            string email = Console.ReadLine();
                             Console.WriteLine("\n Please provide Job Title:");
                             var title = Console.ReadLine();
                             Console.Write("\n Please provide Job Description:\n");
@@ -77,7 +81,12 @@ namespace SearchEngine
                             var company = Console.ReadLine();
                             Console.Write("\n Please provide location:\n");
                             var location = Console.ReadLine();
-                            var job = Engine.PostJob(title, description, company, location, anumber);
+                            var job = Engine.PostJob(title, description, company, location, anumber, email);
+                            if(job == null)
+                            {
+                                    Console.WriteLine("\n  Please create Employer type account first");
+                                    break;
+                            }
                             Console.WriteLine($"A Job with Id: {job.JobNumber}, Company: {job.Company}, for Account: {job.AccountNumber} has been posted ");
                             Console.ReadLine();
                         }
@@ -94,8 +103,10 @@ namespace SearchEngine
                         try
                         {
                             PrintAllAccounts();
-                            Console.WriteLine("\n Please provide you Account Number to Post Resume:");
+                            Console.WriteLine("\n Please provide your Account Number to Post Resume:");
                             int accnumber = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine("\n Please provide your emailaddress to Post Resume:");
+                            var email = Console.ReadLine();
                             Console.WriteLine("\n Please provide your name:");
                             var resumeName = Console.ReadLine();
                             Console.Write("\n Please provide Description:\n");
@@ -104,7 +115,7 @@ namespace SearchEngine
                             var education = Console.ReadLine();
                             Console.Write("\n Please provide Skills:\n");
                             var skills = Console.ReadLine();
-                            var resume = Engine.UploadResume(resumeName, resumeDescription, education, skills, accnumber);
+                            var resume = Engine.UploadResume(resumeName, email, resumeDescription, education, skills, accnumber);
                             Console.WriteLine($"A Resume for: {resume.ResumeName}, With Description: {resume.Description}, for Account: {resume.AccountNumber} has been posted ");
                             Console.ReadLine();
 
@@ -112,6 +123,10 @@ namespace SearchEngine
                         catch (ArgumentNullException ax)
                         {
                             Console.WriteLine($"Something went wrong. {ax.Message} ");
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine($"Something went wrong. Either account number is invalid.");
                         }
                         break;
                     case "4":
@@ -135,7 +150,31 @@ namespace SearchEngine
                             Console.WriteLine($"Something went wrong. {ax.Message} ");
                         }
                         break;
-                    default:
+                    case "6" :
+                        try
+                        {
+                            Console.WriteLine("Enter the job title");
+                            var jobTitle = Console.ReadLine();
+
+                            var Jobs = Engine.GetJobsByJobTitle(jobTitle);
+                            foreach (var Job in Jobs)
+                            {
+                                Console.WriteLine($"Job{Job.JobNumber}, JobTitle : {Job.JobTitle}, JobDescription: {Job.Description}, Company: {Job.Company}, JobLocation: {Job.Location}");
+                            }
+                        }
+                        catch (ArgumentNullException ax)
+                        {
+                            Console.WriteLine($"Something went wrong. {ax.Message} ");
+                        }
+                        break;
+                    case "7":
+                        Console.WriteLine("Please enter the emailaddress");
+                        string jobseekerEmail = Console.ReadLine();
+                        var app = Engine.CreateApplication(jobseekerEmail);
+                        Console.WriteLine($"Application {app.AppNumber} has been created");
+                        break;
+
+                  default:
                         break;
 
                 }

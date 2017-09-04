@@ -24,6 +24,7 @@ namespace SearchEngine
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Resume> Resumes { get; set; }
         public virtual DbSet<Job> Jobs { get; set; }
+        public virtual DbSet<Application> Applications { get; set; }
     }
 
     //public class MyEntity

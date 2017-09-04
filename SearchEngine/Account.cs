@@ -24,11 +24,12 @@ namespace SearchEngine
 
         #region Properties
 
-            [Key]
+            [Key, Column(Order = 0)]
             public int AccountNumber { get; private set;}
             [Required]
             [StringLength(50, ErrorMessage = "Email address should be 50 character or less")]
             [Index ("TitleIndex", IsUnique = true)]
+            [Key, Column(Order = 1)]
             public string EmailAddress { get; set; }
 
             public string Password { get; set; }
